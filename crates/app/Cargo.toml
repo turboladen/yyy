@@ -1,11 +1,10 @@
 [package]
-name = "yyy-web"
+name = "yyy"
 version = "0.1.0"
 edition = "2021"
 publish = false
 
 [dependencies]
-axum = { version = "0.6.19", features = ["ws", "http2"] }
-hyper = { version = "0.14.27", features = ["full"] }
+clap = { version = "4.3.19", features = ["derive"] }
 tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
-tower = "0.4.13"
+yyy-web = { path = "../web" }
