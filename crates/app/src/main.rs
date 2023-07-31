@@ -31,7 +31,8 @@ pub enum Commands {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), yyy_web::Error> {
+    env_logger::init();
     let args = Cli::parse();
 
     match args.command() {
