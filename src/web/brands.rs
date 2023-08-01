@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use surrealdb::sql::Thing;
 use time::OffsetDateTime;
 
-use super::{error::Error, state::AppState};
+use super::{error::Error, html::page, state::AppState};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct IndexBrand {
@@ -29,18 +29,22 @@ pub(crate) async fn index(State(state): State<AppState>) -> Result<Markup, Error
     let mut brands: Vec<IndexBrand> = db.select("brands").await?;
     brands.sort_by(|a, b| a.name.cmp(&b.name));
 
-    Ok(html! {
-        h1 { "Brands" }
-        table {
-            tr {
-                th { "ID" }
-                th { "Name" }
+    Ok(page(
+        "Brands",
+        html! {
+            div {
+                table {
+                    tr {
+                        th { "ID" }
+                        th { "Name" }
+                    }
+                    @for brand in &brands {
+                        tr { td {  (brand.id.id) } td {  (brand.name) } }
+                    }
+                }
             }
-            @for brand in &brands {
-                tr { td {  (brand.id.id) } td {  (brand.name) } }
-            }
-        }
-    })
+        },
+    ))
 }
 
 #[derive(Debug, Serialize, Deserialize)]

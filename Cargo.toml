@@ -19,4 +19,5 @@ thiserror = "1.0.44"
 time = { version = "0.3.24", features = ["macros", "serde", "serde-human-readable", "serde-well-known"] }
 tokio = { version = "1.29.1", features = ["macros", "rt-multi-thread", "sync"] }
 tower = "0.4.13"
+tower-http = { version = "0.4.3", features = ["tokio", "trace"] }
 tracing = { version = "0.1.37", features = ["log", "log-always"] }

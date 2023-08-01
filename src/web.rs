@@ -1,8 +1,11 @@
 pub(crate) mod brands;
 pub mod error;
+pub(crate) mod html;
 pub(crate) mod state;
 
 use axum::{routing::get, Router};
+use tower::ServiceBuilder;
+use tower_http::trace::TraceLayer;
 use tracing::info;
 
 pub use self::error::Error;
@@ -16,6 +19,7 @@ pub async fn start() -> Result<(), self::Error> {
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/brands", get(brands::index))
+        .layer(ServiceBuilder::new().layer(TraceLayer::new_for_http()))
         .with_state(state);
 
     let host_and_port = "0.0.0.0:3000";
