@@ -7,6 +7,7 @@ use surrealdb::{
 use tokio::sync::Mutex;
 use tracing::debug_span;
 
+const DB_FILE: &str = "yyy.dev.db";
 const NAMESPACE: &str = "yyy";
 const DEV_DB_NAME: &str = "dev";
 
@@ -16,22 +17,27 @@ pub(crate) struct AppState {
 }
 
 impl AppState {
-    pub async fn try_new(db_file: &str) -> surrealdb::Result<Self> {
+    pub async fn try_new() -> surrealdb::Result<Self> {
         let db = {
             debug_span!(
                 "DB Setup",
-                file = db_file,
+                file = DB_FILE,
                 namespace = NAMESPACE,
                 db = DEV_DB_NAME,
             );
 
-            let db = Surreal::new::<File>(db_file).await?;
-            db.use_ns(NAMESPACE).use_db(DEV_DB_NAME).await?;
-            db
+            db().await?
         };
 
         Ok(Self {
             db: Arc::new(Mutex::new(db)),
         })
     }
+}
+
+pub(crate) async fn db() -> surrealdb::Result<Surreal<Db>> {
+    let db = Surreal::new::<File>(DB_FILE).await?;
+    db.use_ns(NAMESPACE).use_db(DEV_DB_NAME).await?;
+
+    Ok(db)
 }

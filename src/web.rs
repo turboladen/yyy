@@ -11,7 +11,7 @@ use self::state::AppState;
 
 #[tracing::instrument]
 pub async fn start() -> Result<(), self::Error> {
-    let state = AppState::try_new("yyy.dev.db").await?;
+    let state = AppState::try_new().await?;
 
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
