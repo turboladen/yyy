@@ -10,7 +10,7 @@ pub(crate) const DB_FILE: &str = "yyy.dev.db";
 pub(crate) const NAMESPACE: &str = "yyy";
 pub(crate) const DEV_DB_NAME: &str = "dev";
 
-pub(crate) async fn connect_to_db() -> surrealdb::Result<Surreal<Db>> {
+pub(crate) async fn connect() -> surrealdb::Result<Surreal<Db>> {
     let db = Surreal::new::<File>(DB_FILE).await?;
     db.use_ns(NAMESPACE).use_db(DEV_DB_NAME).await?;
 
@@ -24,7 +24,7 @@ pub(crate) struct DbForCreate {
 impl DbForCreate {
     pub(crate) async fn try_new() -> surrealdb::Result<Self> {
         Ok(Self {
-            db: connect_to_db().await?,
+            db: connect().await?,
         })
     }
 

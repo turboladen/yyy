@@ -4,7 +4,7 @@ use surrealdb::{engine::local::Db, Surreal};
 use tokio::sync::Mutex;
 use tracing::debug_span;
 
-use crate::database::{connect_to_db, DB_FILE, DEV_DB_NAME, NAMESPACE};
+use crate::database::{self, DB_FILE, DEV_DB_NAME, NAMESPACE};
 
 #[derive(Clone)]
 pub(crate) struct AppState {
@@ -21,7 +21,7 @@ impl AppState {
                 db = DEV_DB_NAME,
             );
 
-            connect_to_db().await?
+            database::connect().await?
         };
 
         Ok(Self {

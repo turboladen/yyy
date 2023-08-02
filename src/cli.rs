@@ -1,4 +1,4 @@
-mod import;
+pub(crate) mod import;
 
 use clap::{Parser, Subcommand};
 

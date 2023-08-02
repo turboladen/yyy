@@ -32,7 +32,11 @@ async fn main() -> anyhow::Result<()> {
 
     match args.command() {
         Commands::Serve => Ok(web::start().await?),
-        Commands::Import(data_importer) => Ok(data_importer.import().await?),
+        Commands::Import(data_importer) => {
+            let db = database::connect().await?;
+
+            Ok(data_importer.import(&db).await?)
+        }
         Commands::DbCreate => {
             let db = DbForCreate::try_new().await?;
 

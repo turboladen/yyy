@@ -1,9 +1,12 @@
 use anyhow::bail;
+use async_trait::async_trait;
 use clap::Args;
-use std::{fs::File, path::PathBuf};
-use tracing::info;
+use serde::de::DeserializeOwned;
+use std::path::{Path, PathBuf};
+use surrealdb::{engine::local::Db, Surreal};
+use tokio::fs::File;
 
-use crate::web::models::brands::{IndexBrand, SeedBrand};
+use crate::web::models::brands::SeedBrand;
 
 #[derive(Args, Debug, Clone)]
 pub(crate) struct Importer {
@@ -17,38 +20,26 @@ pub(crate) struct Importer {
 }
 
 impl Importer {
-    pub(crate) async fn import(&self) -> anyhow::Result<()> {
+    pub(crate) async fn import(&self, db: &Surreal<Db>) -> anyhow::Result<()> {
         match self.table.as_str() {
-            "brands" => {
-                let seed_brands = {
-                    let f = File::open(&self.file)?;
-                    let data: Vec<SeedBrand> = serde_yaml::from_reader(f)?;
-                    data
-                };
-
-                let db = crate::database::connect_to_db().await?;
-
-                let mut inserted: Vec<IndexBrand> = vec![];
-
-                for seed_brand in seed_brands {
-                    info!("Creating brand: {:?}", &seed_brand);
-
-                    let i: IndexBrand = db
-                        .create("brands")
-                        .content(seed_brand.into_insert())
-                        .await?;
-                    inserted.push(i);
-                }
-
-                for brand in inserted {
-                    println!("Inserted brand: [{}] {}", brand.id().id, brand.name());
-                }
-
-                Ok(())
-            }
+            "brands" => SeedBrand::import(&self.file, db).await,
             t => {
                 bail!("Unknown table type: {t}")
             }
         }
+    }
+}
+
+#[async_trait]
+pub(crate) trait Import: DeserializeOwned {
+    type InsertedType;
+
+    async fn import(file: &Path, db: &Surreal<Db>) -> anyhow::Result<()>;
+
+    async fn load_yaml(file: &Path) -> anyhow::Result<Vec<Self>> {
+        let f = File::open(file).await?.into_std().await;
+        let data: Vec<Self> = serde_yaml::from_reader(f)?;
+
+        Ok(data)
     }
 }

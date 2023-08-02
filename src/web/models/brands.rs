@@ -1,8 +1,16 @@
-use serde::{Deserialize, Serialize};
-use surrealdb::sql::{Datetime, Thing};
-use time::OffsetDateTime;
+use std::path::Path;
 
-use crate::database::CreateTable;
+use async_trait::async_trait;
+use serde::{Deserialize, Serialize};
+use surrealdb::{
+    engine::local::Db,
+    sql::{Datetime, Thing},
+    Surreal,
+};
+use time::OffsetDateTime;
+use tracing::info;
+
+use crate::{cli::import::Import, database::CreateTable};
 
 pub(crate) struct Creator;
 
@@ -47,6 +55,27 @@ impl SeedBrand {
             name: self.name,
             created_at: OffsetDateTime::now_utc(),
         }
+    }
+}
+
+#[async_trait]
+impl Import for SeedBrand {
+    type InsertedType = IndexBrand;
+
+    async fn import(file: &Path, db: &Surreal<Db>) -> anyhow::Result<()> {
+        let seed_brands = Self::load_yaml(file).await?;
+
+        for seed_brand in seed_brands {
+            info!("Creating brand: {:?}", &seed_brand);
+
+            let brand: IndexBrand = db
+                .create("brands")
+                .content(seed_brand.into_insert())
+                .await?;
+            println!("Inserted brand: [{}] {}", brand.id().id, brand.name());
+        }
+
+        Ok(())
     }
 }
 
