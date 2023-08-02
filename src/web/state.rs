@@ -1,15 +1,10 @@
 use std::sync::Arc;
 
-use surrealdb::{
-    engine::local::{Db, File},
-    Surreal,
-};
+use surrealdb::{engine::local::Db, Surreal};
 use tokio::sync::Mutex;
 use tracing::debug_span;
 
-const DB_FILE: &str = "yyy.dev.db";
-const NAMESPACE: &str = "yyy";
-const DEV_DB_NAME: &str = "dev";
+use crate::database::{connect_to_db, DB_FILE, DEV_DB_NAME, NAMESPACE};
 
 #[derive(Clone)]
 pub(crate) struct AppState {
@@ -26,18 +21,11 @@ impl AppState {
                 db = DEV_DB_NAME,
             );
 
-            db().await?
+            connect_to_db().await?
         };
 
         Ok(Self {
             db: Arc::new(Mutex::new(db)),
         })
     }
-}
-
-pub(crate) async fn db() -> surrealdb::Result<Surreal<Db>> {
-    let db = Surreal::new::<File>(DB_FILE).await?;
-    db.use_ns(NAMESPACE).use_db(DEV_DB_NAME).await?;
-
-    Ok(db)
 }

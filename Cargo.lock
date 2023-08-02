@@ -2929,6 +2929,7 @@ name = "yyy"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "async-trait",
  "axum",
  "axum-macros",
  "clap",

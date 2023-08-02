@@ -1,6 +1,7 @@
-pub(crate) mod brands;
+pub(crate) mod controllers;
 pub mod error;
 pub(crate) mod html;
+pub(crate) mod models;
 pub(crate) mod state;
 
 use axum::{routing::get, Router};
@@ -18,7 +19,7 @@ pub async fn start() -> Result<(), self::Error> {
 
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
-        .route("/brands", get(brands::index))
+        .route("/brands", get(controllers::brands::index))
         .layer(ServiceBuilder::new().layer(TraceLayer::new_for_http()))
         .with_state(state);
 
