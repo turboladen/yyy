@@ -1,5 +1,5 @@
 pub(crate) mod controllers;
-pub mod error;
+pub(crate) mod error;
 pub(crate) mod html;
 pub(crate) mod models;
 pub(crate) mod state;
@@ -9,12 +9,12 @@ use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::info;
 
-pub use self::error::Error;
+pub(crate) use self::error::Error;
 
 use self::state::AppState;
 
 #[tracing::instrument]
-pub async fn start() -> Result<(), self::Error> {
+pub(crate) async fn start() -> Result<(), Error> {
     let state = AppState::try_new().await?;
 
     let app = Router::new()

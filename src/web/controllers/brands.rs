@@ -5,8 +5,12 @@ use crate::web::{error::Error, html::page, models::brands::IndexBrand, state::Ap
 
 #[axum_macros::debug_handler]
 pub(crate) async fn index(State(state): State<AppState>) -> Result<Markup, Error> {
-    let db = state.db.lock().await;
-    let mut brands: Vec<IndexBrand> = db.select("brands").await?;
+    let mut brands = {
+        let db = state.db.lock().await;
+        let brands: Vec<IndexBrand> = db.select("brands").await?;
+        brands
+    };
+
     brands.sort_by(|a, b| a.name().cmp(b.name()));
 
     Ok(page(

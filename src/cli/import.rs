@@ -6,7 +6,7 @@ use tracing::info;
 use crate::web::models::brands::{IndexBrand, SeedBrand};
 
 #[derive(Args, Debug, Clone)]
-pub struct Importer {
+pub(crate) struct Importer {
     /// The table to import to.
     ///
     table: String,
@@ -17,7 +17,7 @@ pub struct Importer {
 }
 
 impl Importer {
-    pub async fn import(&self) -> anyhow::Result<()> {
+    pub(crate) async fn import(&self) -> anyhow::Result<()> {
         match self.table.as_str() {
             "brands" => {
                 let seed_brands = {

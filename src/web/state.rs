@@ -12,7 +12,7 @@ pub(crate) struct AppState {
 }
 
 impl AppState {
-    pub async fn try_new() -> surrealdb::Result<Self> {
+    pub(crate) async fn try_new() -> surrealdb::Result<Self> {
         let db = {
             debug_span!(
                 "DB Setup",

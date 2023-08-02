@@ -27,7 +27,7 @@ pub(crate) struct IndexBrand {
 }
 
 impl IndexBrand {
-    pub(crate) fn id(&self) -> &Thing {
+    pub(crate) const fn id(&self) -> &Thing {
         &self.id
     }
 

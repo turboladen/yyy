@@ -5,7 +5,7 @@ use thiserror::Error;
 // TODO: If this is ever deployed, these should obfuscate implementation.
 //
 #[derive(Error, Debug)]
-pub enum Error {
+pub(crate) enum Error {
     #[error(transparent)]
     Db(#[from] surrealdb::Error),
 
