@@ -1,9 +1,14 @@
+//!
+//! This module defines and handles logic for processing command-line arguments.
+//!
 pub(crate) mod import;
 
 use clap::{Parser, Subcommand};
 
 use self::import::Importer;
 
+/// This struct enables the `clap::Parser` functionality, which does all the CLI argument parsing.
+///
 #[derive(Parser, Debug, Clone)]
 #[command(author, version, about, long_about = None, propagate_version = true)]
 pub(crate) struct Cli {

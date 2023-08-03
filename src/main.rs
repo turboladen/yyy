@@ -25,6 +25,9 @@ use crate::cli::{Cli, Commands};
 
 use self::database::DbForCreate;
 
+/// While the app is obviously primarily a web app, we define some other commands here that help
+/// manage the app.
+///
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     env_logger::init();

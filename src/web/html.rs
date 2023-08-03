@@ -1,6 +1,20 @@
 use maud::{html, Markup, DOCTYPE};
 
+/// The final Markup, including `header` and `footer`.
+///
+#[allow(clippy::needless_pass_by_value)]
+pub(crate) fn page(title: &str, greeting_box: Markup) -> Markup {
+    html! {
+        // Add the header markup to the page
+        (header(title))
+        h1 { (title) }
+        (greeting_box)
+        (footer())
+    }
+}
+
 /// A basic header with a dynamic `page_title`.
+///
 fn header(page_title: &str) -> Markup {
     html! {
         (DOCTYPE)
@@ -14,20 +28,7 @@ fn header(page_title: &str) -> Markup {
 fn footer() -> Markup {
     html! {
         footer {
-            a href="rss.atom" { "RSS Feed" }
+            { "Meow" }
         }
-    }
-}
-
-/// The final Markup, including `header` and `footer`.
-///
-/// Additionally takes a `greeting_box` that's `Markup`, not `&str`.
-pub(crate) fn page(title: &str, greeting_box: Markup) -> Markup {
-    html! {
-        // Add the header markup to the page
-        (header(title))
-        h1 { (title) }
-        (greeting_box)
-        (footer())
     }
 }
