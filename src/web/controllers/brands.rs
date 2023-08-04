@@ -4,7 +4,9 @@
 use axum::extract::State;
 use maud::Markup;
 
-use crate::web::{error::Error, models::brands::IndexBrand, state::AppState, views::brands::*};
+use crate::web::{
+    error::Error, models::brands::IndexBrand, state::AppState, views::brands::index_html,
+};
 
 /// (HTML) `GET /brands`
 ///

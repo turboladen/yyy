@@ -1,3 +1,6 @@
+//!
+//! This module handles getting/putting `brands` from/to the database.
+//!
 use std::path::Path;
 
 use async_trait::async_trait;
@@ -12,6 +15,8 @@ use tracing::info;
 
 use crate::{cli::import::Import, database::CreateTable};
 
+/// This struct is solely for implementing the `CreateTable` trait.
+///
 pub(crate) struct Creator;
 
 impl CreateTable for Creator {
@@ -22,16 +27,16 @@ impl CreateTable for Creator {
         ASSERT $value != NONE;
 
     DEFINE FIELD created_at ON TABLE brands TYPE datetime
-        VALUE time::now();
-
+        VALUE $value OR time::now();
     "#;
 }
 
+/// Data for `/brands`.
+///
 #[derive(Debug, Deserialize)]
 pub(crate) struct IndexBrand {
     id: Thing,
     name: String,
-    created_at: Datetime,
 }
 
 impl IndexBrand {
@@ -44,18 +49,35 @@ impl IndexBrand {
     }
 }
 
+/// Data for `/brands/:id`.
+///
 #[derive(Debug, Deserialize)]
-pub(crate) struct SeedBrand {
+pub(crate) struct ShowBrand {
+    id: Thing,
     name: String,
+    created_at: Datetime,
 }
 
-impl SeedBrand {
-    pub(crate) fn into_insert(self) -> InsertBrand {
-        InsertBrand {
-            name: self.name,
-            created_at: OffsetDateTime::now_utc(),
-        }
+impl ShowBrand {
+    pub(crate) const fn id(&self) -> &Thing {
+        &self.id
     }
+
+    pub(crate) fn name(&self) -> &str {
+        self.name.as_ref()
+    }
+
+    pub(crate) const fn created_at(&self) -> &chrono::DateTime<chrono::Utc> {
+        &self.created_at.0
+    }
+}
+
+/// Data for reading brands from the seed file and writing to the database. The seed file
+/// only contains entries with names, hence the single attribute here.
+///
+#[derive(Debug, Deserialize, Serialize)]
+pub(crate) struct SeedBrand {
+    name: String,
 }
 
 #[async_trait]
@@ -68,19 +90,15 @@ impl Import for SeedBrand {
         for seed_brand in seed_brands {
             info!("Creating brand: {:?}", &seed_brand);
 
-            let brand: IndexBrand = db
-                .create("brands")
-                .content(seed_brand.into_insert())
-                .await?;
-            println!("Inserted brand: [{}] {}", brand.id().id, brand.name());
+            let brand: ShowBrand = db.create("brands").content(seed_brand).await?;
+            println!(
+                "Inserted brand: [{} - {}] {}",
+                brand.created_at(),
+                brand.id().id,
+                brand.name()
+            );
         }
 
         Ok(())
     }
-}
-
-#[derive(Debug, Serialize)]
-pub(crate) struct InsertBrand {
-    name: String,
-    created_at: OffsetDateTime,
 }
