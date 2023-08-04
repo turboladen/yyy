@@ -18,12 +18,6 @@ serde = { version = "1.0.178", features = ["derive"] }
 serde_yaml = "0.9.25"
 surrealdb = { version = "1.0.0-beta.9", features = ["kv-rocksdb"] }
 thiserror = "1.0.44"
-time = { version = "0.3.24", features = [
-  "macros",
-  "serde",
-  "serde-human-readable",
-  "serde-well-known",
-] }
 tokio = { version = "1.29.1", features = [
   "fs",
   "macros",

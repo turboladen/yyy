@@ -1,3 +1,6 @@
+//!
+//! Representations for brand models.
+//!
 use maud::{html, Markup};
 
 use crate::web::{models::brands::IndexBrand, views::html::page};

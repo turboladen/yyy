@@ -10,7 +10,6 @@ use surrealdb::{
     sql::{Datetime, Thing},
     Surreal,
 };
-use time::OffsetDateTime;
 use tracing::info;
 
 use crate::{cli::import::Import, database::CreateTable};

@@ -1,3 +1,6 @@
+//!
+//! Helpers for generating HTML.
+//!
 use maud::{html, Markup, DOCTYPE};
 
 /// The final Markup, including `header` and `footer`.
