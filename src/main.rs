@@ -1,3 +1,8 @@
+//!
+//! # Yes yes yessss
+//!
+//! A web app for managing reusable projects that depend on off-the-shelf components.
+//!
 #![deny(unused_extern_crates)]
 #![warn(
     clippy::all,

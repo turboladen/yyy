@@ -52,6 +52,10 @@ impl DbForCreate {
         })
     }
 
+    /// This creates the database and sets up tables that we need. You can still use Surreal without
+    /// doing any of this, but this gets us into the schema-full realm of Surreal instead of working
+    /// schema-less (at this point, we want schema-full).
+    ///
     pub(crate) async fn create(&self) -> surrealdb::Result<()> {
         info!("Creating database...");
 
@@ -69,6 +73,8 @@ impl DbForCreate {
     }
 }
 
+/// This just defines a standard interface for creating tables as part of one transaction.
+///
 #[async_trait]
 pub(crate) trait CreateTable {
     const QUERY: &'static str;

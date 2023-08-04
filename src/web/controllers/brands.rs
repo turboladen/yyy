@@ -1,8 +1,13 @@
+//!
+//! All HTTP endpoints for `brands`.
+//!
 use axum::extract::State;
 use maud::{html, Markup};
 
 use crate::web::{error::Error, html::page, models::brands::IndexBrand, state::AppState};
 
+/// (HTML) `GET /brands`
+///
 #[axum_macros::debug_handler]
 pub(crate) async fn index(State(state): State<AppState>) -> Result<Markup, Error> {
     const QUERY: &str = "SELECT * FROM brands ORDER BY name;";
