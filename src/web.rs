@@ -1,8 +1,8 @@
 pub(crate) mod controllers;
 pub(crate) mod error;
-pub(crate) mod html;
 pub(crate) mod models;
 pub(crate) mod state;
+pub(crate) mod views;
 
 use axum::{routing::get, Router};
 use tower::ServiceBuilder;

@@ -2,9 +2,9 @@
 //! All HTTP endpoints for `brands`.
 //!
 use axum::extract::State;
-use maud::{html, Markup};
+use maud::Markup;
 
-use crate::web::{error::Error, html::page, models::brands::IndexBrand, state::AppState};
+use crate::web::{error::Error, models::brands::IndexBrand, state::AppState, views::brands::*};
 
 /// (HTML) `GET /brands`
 ///
@@ -23,20 +23,5 @@ pub(crate) async fn index(State(state): State<AppState>) -> Result<Markup, Error
         response.take(0)?
     };
 
-    Ok(page(
-        "Brands",
-        html! {
-            div {
-                table {
-                    tr {
-                        th { "ID" }
-                        th { "Name" }
-                    }
-                    @for brand in &brands {
-                        tr { td {  (brand.id().id) } td {  (brand.name()) } }
-                    }
-                }
-            }
-        },
-    ))
+    Ok(index_html(&brands))
 }
