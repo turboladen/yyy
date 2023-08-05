@@ -7,14 +7,12 @@ pub(crate) mod models;
 pub(crate) mod state;
 pub(crate) mod views;
 
-use std::net::SocketAddr;
-
 use axum::{routing::get, Router};
 use tower::ServiceBuilder;
 use tower_http::trace::TraceLayer;
 use tracing::info;
 
-pub(crate) use self::error::Error;
+use crate::settings::Settings;
 
 use self::state::AppState;
 
@@ -22,8 +20,8 @@ use self::state::AppState;
 /// launch the web app, hence a regular ol' function.
 ///
 #[tracing::instrument]
-pub(crate) async fn start() -> Result<(), Error> {
-    let state = AppState::try_new().await?;
+pub(crate) async fn start(settings: &Settings) -> anyhow::Result<()> {
+    let state = AppState::try_new(settings.database()).await?;
 
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
@@ -31,7 +29,7 @@ pub(crate) async fn start() -> Result<(), Error> {
         .layer(ServiceBuilder::new().layer(TraceLayer::new_for_http()))
         .with_state(state);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
+    let addr = settings.tcp().socket_addr()?;
     info!("Starting server on {addr}...");
 
     axum::Server::bind(&addr)

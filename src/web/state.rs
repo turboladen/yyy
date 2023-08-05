@@ -8,7 +8,7 @@ use surrealdb::{engine::local::Db, Surreal};
 use tokio::sync::Mutex;
 use tracing::debug_span;
 
-use crate::database::{self, DB_FILE, DEV_DB_NAME, NAMESPACE};
+use crate::{database, settings::Database};
 
 /// All state is managed here.
 ///
@@ -20,16 +20,16 @@ pub(crate) struct AppState {
 impl AppState {
     /// Instantiate all the things.
     ///
-    pub(crate) async fn try_new() -> surrealdb::Result<Self> {
+    pub(crate) async fn try_new(db_settings: &Database) -> surrealdb::Result<Self> {
         let db = {
             debug_span!(
                 "DB Setup",
-                file = DB_FILE,
-                namespace = NAMESPACE,
-                db = DEV_DB_NAME,
+                file = db_settings.file(),
+                namespace = db_settings.namespace(),
+                db = db_settings.name(),
             );
 
-            database::connect().await?
+            database::connect(db_settings).await?
         };
 
         Ok(Self {

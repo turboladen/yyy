@@ -10,28 +10,17 @@ use surrealdb::{
 };
 use tracing::info;
 
-/// Since we're using a file-based RocksDB backend for now, this ends up being the name of the
-/// directory that's created when Surreal inits.
-///
-pub(crate) const DB_FILE: &str = "yyy.dev.db";
-
-/// At this point, we don't really care about namespacing, but Surreal requires it, so here we go.
-///
-pub(crate) const NAMESPACE: &str = "yyy";
-
-/// Same as with `NAMESPACE`, we don't need more than one database yet, but have to declare a name
-/// to use.
-///
-// TODO: If it ever makes sense, this could/should reflect the environment we're running in.
-//
-pub(crate) const DEV_DB_NAME: &str = "dev";
+use crate::settings::Database;
 
 /// Simple function for connecting to the database. Since the webapp needs a shareable connection,
 /// this is really only useful for simple connections (i.e. for seeding data).
 ///
-pub(crate) async fn connect() -> surrealdb::Result<Surreal<Db>> {
-    let db = Surreal::new::<File>(DB_FILE).await?;
-    db.use_ns(NAMESPACE).use_db(DEV_DB_NAME).await?;
+pub(crate) async fn connect(db_settings: &Database) -> surrealdb::Result<Surreal<Db>> {
+    let db = Surreal::new::<File>(db_settings.file()).await?;
+
+    db.use_ns(db_settings.namespace())
+        .use_db(db_settings.name())
+        .await?;
 
     Ok(db)
 }
@@ -41,14 +30,16 @@ pub(crate) async fn connect() -> surrealdb::Result<Surreal<Db>> {
 ///
 pub(crate) struct DbForCreate {
     db: Surreal<Db>,
+    name: String,
 }
 
 impl DbForCreate {
     /// Connect to the db and instantiate `Self`.
     ///
-    pub(crate) async fn try_new() -> surrealdb::Result<Self> {
+    pub(crate) async fn try_new(db_settings: &Database) -> surrealdb::Result<Self> {
         Ok(Self {
-            db: connect().await?,
+            db: connect(db_settings).await?,
+            name: db_settings.name().to_string(),
         })
     }
 
@@ -62,7 +53,7 @@ impl DbForCreate {
         let response = self
             .db
             .query("BEGIN TRANSACTION")
-            .query(format!("DEFINE DATABASE {DEV_DB_NAME}"))
+            .query(format!("DEFINE DATABASE {}", &self.name))
             .query(crate::web::models::brands::Creator::QUERY)
             .query("COMMIT TRANSACTION")
             .await?;
