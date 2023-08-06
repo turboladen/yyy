@@ -7,6 +7,8 @@ use anyhow::bail;
 use config::{Config, Environment, File};
 use serde::Deserialize;
 
+const DEFAULTS_FILE: &str = "config/defaults";
+
 #[derive(Debug)]
 pub(crate) struct Settings {
     database: Database,
@@ -30,6 +32,7 @@ impl Settings {
         };
 
         let s = Config::builder()
+            .add_source(File::with_name(DEFAULTS_FILE))
             .add_source(File::with_name(config_file_path))
             .add_source(Environment::with_prefix("yyy"))
             .build()?;
@@ -42,11 +45,11 @@ impl Settings {
         })
     }
 
-    pub(crate) fn database(&self) -> &Database {
+    pub(crate) const fn database(&self) -> &Database {
         &self.database
     }
 
-    pub(crate) fn tcp(&self) -> &Tcp {
+    pub(crate) const fn tcp(&self) -> &Tcp {
         &self.tcp
     }
 }
