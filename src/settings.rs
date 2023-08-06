@@ -26,18 +26,15 @@ impl Settings {
             },
         };
 
-        let config_file_path = match yyy_env {
-            Env::Dev => "config/dev",
-            Env::Test => "config/test",
+        let s: SettingsFile = {
+            let s = Config::builder()
+                .add_source(File::with_name(DEFAULTS_FILE))
+                .add_source(File::with_name(yyy_env.config_file_path()))
+                .add_source(Environment::with_prefix("yyy"))
+                .build()?;
+
+            s.try_deserialize()?
         };
-
-        let s = Config::builder()
-            .add_source(File::with_name(DEFAULTS_FILE))
-            .add_source(File::with_name(config_file_path))
-            .add_source(Environment::with_prefix("yyy"))
-            .build()?;
-
-        let s: SettingsFile = s.try_deserialize()?;
 
         Ok(Self {
             database: s.database,
@@ -91,6 +88,15 @@ impl Tcp {
 pub(crate) enum Env {
     Dev,
     Test,
+}
+
+impl Env {
+    const fn config_file_path(&self) -> &'static str {
+        match self {
+            Self::Dev => "config/dev",
+            Self::Test => "config/test",
+        }
+    }
 }
 
 #[derive(Debug, Deserialize)]
