@@ -2,11 +2,39 @@
 name = "yyy"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+publish = false
 
 [dependencies]
+anyhow = "1.0.72"
+async-trait = "0.1.72"
 axum = { version = "0.6.19", features = ["ws", "http2"] }
+axum-macros = "0.3.8"
+chrono = { version = "0.4" }
+clap = { version = "4.3.19", features = ["derive"] }
+config = "0.13.3"
+env_logger = "0.10"
 hyper = { version = "0.14.27", features = ["full"] }
-tokio = { version = "1.29.1", features = ["full"] }
+maud = { version = "0.25.0", features = ["axum"] }
+serde = { version = "1.0.178", features = ["derive"] }
+serde_yaml = "0.9.25"
+surrealdb = { version = "1.0.0-beta.9", features = ["kv-rocksdb"] }
+thiserror = "1.0.44"
+tokio = { version = "1.29.1", features = [
+  "fs",
+  "macros",
+  "rt-multi-thread",
+  "sync",
+] }
 tower = "0.4.13"
+tower-http = { version = "0.4.3", features = [
+  "compression-br",
+  "sensitive-headers",
+  "tokio",
+  "timeout",
+  "trace",
+] }
+tracing = { version = "0.1.37", features = ["log", "log-always"] }
+
+[dev-dependencies]
+assert_cmd = { version = "2.0.12", features = ["color"] }
+predicates = "3.0.3"
