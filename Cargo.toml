@@ -28,3 +28,7 @@ tokio = { version = "1.29.1", features = [
 tower = "0.4.13"
 tower-http = { version = "0.4.3", features = ["tokio", "trace"] }
 tracing = { version = "0.1.37", features = ["log", "log-always"] }
+
+[dev-dependencies]
+assert_cmd = { version = "2.0.12", features = ["color"] }
+predicates = "3.0.3"
