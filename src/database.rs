@@ -56,6 +56,7 @@ impl DbForMigrate {
             .query(format!("DEFINE DATABASE {}", &self.name))
             .query(crate::web::models::brands::Creator::QUERY)
             .query(crate::web::models::vendors::Creator::QUERY)
+            .query(crate::web::models::projects::Creator::QUERY)
             .query("COMMIT TRANSACTION")
             .await?;
 

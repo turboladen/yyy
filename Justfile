@@ -1,3 +1,6 @@
+default:
+  @just --list
+
 watch:
   RUST_LOG=debug cargo watch -x "run serve"
 
@@ -10,3 +13,7 @@ migrate:
 seed: migrate
   RUST_LOG=debug cargo run -- import brands seeds/brands.yml
   RUST_LOG=debug cargo run -- import vendors seeds/vendors.yml
+  RUST_LOG=debug cargo run -- import projects seeds/projects.yml
+
+seed-one table: migrate
+  RUST_LOG=debug cargo run -- import {{table}} seeds/{{table}}.yml
