@@ -7,9 +7,11 @@ pub(crate) mod models;
 pub(crate) mod state;
 pub(crate) mod views;
 
+use std::time::Duration;
+
 use axum::{routing::get, Router};
 use tower::ServiceBuilder;
-use tower_http::trace::TraceLayer;
+use tower_http::{compression::CompressionLayer, timeout::TimeoutLayer, trace::TraceLayer};
 use tracing::info;
 
 use crate::settings::Settings;
@@ -26,7 +28,12 @@ pub(crate) async fn start(settings: &Settings) -> anyhow::Result<()> {
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/brands", get(controllers::brands::index))
-        .layer(ServiceBuilder::new().layer(TraceLayer::new_for_http()))
+        .layer(
+            ServiceBuilder::new()
+                .layer(CompressionLayer::new())
+                .layer(TraceLayer::new_for_http())
+                .layer(TimeoutLayer::new(Duration::from_secs(30))),
+        )
         .with_state(state);
 
     let addr = settings.tcp().socket_addr()?;
