@@ -29,6 +29,7 @@ pub(crate) async fn start(settings: &Settings) -> anyhow::Result<()> {
         .route("/", get(|| async { "Hello, World!" }))
         .route("/brands", get(controllers::brands::index))
         .route("/vendors", get(controllers::vendors::index))
+        .route("/projects", get(controllers::projects::index))
         .layer(
             ServiceBuilder::new()
                 .layer(CompressionLayer::new())
