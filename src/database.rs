@@ -28,12 +28,12 @@ pub(crate) async fn connect(db_settings: &Database) -> surrealdb::Result<Surreal
 /// This wrapper for the Surreal database we use just adds some convenience methods for setting up
 /// and working with the database from a maintenance perspective.
 ///
-pub(crate) struct DbForCreate {
+pub(crate) struct DbForMigrate {
     db: Surreal<Db>,
     name: String,
 }
 
-impl DbForCreate {
+impl DbForMigrate {
     /// Connect to the db and instantiate `Self`.
     ///
     pub(crate) async fn try_new(db_settings: &Database) -> surrealdb::Result<Self> {
@@ -47,7 +47,7 @@ impl DbForCreate {
     /// doing any of this, but this gets us into the schema-full realm of Surreal instead of working
     /// schema-less (at this point, we want schema-full).
     ///
-    pub(crate) async fn create(&self) -> surrealdb::Result<()> {
+    pub(crate) async fn migrate(&self) -> surrealdb::Result<()> {
         info!("Creating database...");
 
         let response = self
@@ -55,6 +55,7 @@ impl DbForCreate {
             .query("BEGIN TRANSACTION")
             .query(format!("DEFINE DATABASE {}", &self.name))
             .query(crate::web::models::brands::Creator::QUERY)
+            .query(crate::web::models::vendors::Creator::QUERY)
             .query("COMMIT TRANSACTION")
             .await?;
 

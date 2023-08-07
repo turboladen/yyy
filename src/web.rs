@@ -28,6 +28,7 @@ pub(crate) async fn start(settings: &Settings) -> anyhow::Result<()> {
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/brands", get(controllers::brands::index))
+        .route("/vendors", get(controllers::vendors::index))
         .layer(
             ServiceBuilder::new()
                 .layer(CompressionLayer::new())

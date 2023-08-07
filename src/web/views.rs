@@ -3,3 +3,4 @@
 //!
 pub(crate) mod brands;
 pub(crate) mod html;
+pub(crate) mod vendors;
