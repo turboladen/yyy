@@ -6,7 +6,7 @@ use std::path::{Path, PathBuf};
 use surrealdb::{engine::local::Db, Surreal};
 use tokio::fs::File;
 
-use crate::web::models::brands::SeedBrand;
+use crate::web::models::{brands::SeedBrand, vendors};
 
 /// This command allows for importing YAML data for one of our tables.
 ///
@@ -36,6 +36,7 @@ impl Importer {
     pub(crate) async fn import(&self, db: &Surreal<Db>) -> anyhow::Result<()> {
         match self.table.as_str() {
             "brands" => SeedBrand::import(&self.file, db).await,
+            "vendors" => vendors::Seed::import(&self.file, db).await,
             t => {
                 bail!("Unknown table type: {t}")
             }

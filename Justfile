@@ -4,6 +4,9 @@ watch:
 serve:
   RUST_LOG=debug cargo run serve
 
-seed:
-  RUST_LOG=debug cargo run -- db-create
+migrate:
+  RUST_LOG=debug cargo run -- db-migrate
+
+seed: migrate
   RUST_LOG=debug cargo run -- import brands seeds/brands.yml
+  RUST_LOG=debug cargo run -- import vendors seeds/vendors.yml

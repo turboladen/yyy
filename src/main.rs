@@ -29,7 +29,7 @@ use clap::Parser;
 
 use crate::cli::{Cli, Commands};
 
-use self::{database::DbForCreate, settings::Settings};
+use self::{database::DbForMigrate, settings::Settings};
 
 /// While the app is obviously primarily a web app, we define some other commands here that help
 /// manage the app.
@@ -48,10 +48,10 @@ async fn main() -> anyhow::Result<()> {
 
             Ok(data_importer.import(&db).await?)
         }
-        Commands::DbCreate => {
-            let db = DbForCreate::try_new(settings.database()).await?;
+        Commands::DbMigrate => {
+            let db = DbForMigrate::try_new(settings.database()).await?;
 
-            Ok(db.create().await?)
+            Ok(db.migrate().await?)
         }
     }
 }

@@ -18,7 +18,7 @@ you should create the database so it's set up with schemas and such (things will
 do this, but you also won't get any enforcement from Surreal of the schema we're using).
 
 ```
-$ cargo run db-create
+$ cargo run db-migrate
 ```
 
 You won't see any logging unless you use `RUST_LOG=debug` or something along those lines.

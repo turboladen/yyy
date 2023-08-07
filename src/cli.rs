@@ -38,7 +38,7 @@ pub(crate) enum Commands {
     ///
     Import(Importer),
 
-    /// Create the database.
+    /// Migrate the database.
     ///
-    DbCreate,
+    DbMigrate,
 }
