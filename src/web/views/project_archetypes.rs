@@ -3,13 +3,13 @@
 //!
 use maud::{html, Markup};
 
-use crate::web::{models::projects::Index, views::html::page};
+use crate::web::{models::project_archetypes::Index, views::html::page};
 
-/// Returns the HTML used for `/projects`.
+/// Returns the HTML used for `/project_archetypes`.
 ///
-pub(crate) fn index_html(projects: &[Index]) -> Markup {
+pub(crate) fn index_html(project_archetypes: &[Index]) -> Markup {
     page(
-        "Projects",
+        "Project Archetypes",
         html! {
             div {
                 table {
@@ -18,13 +18,13 @@ pub(crate) fn index_html(projects: &[Index]) -> Markup {
                         th { "Name" }
                         th { "Related Links" }
                     }
-                    @for project in projects {
+                    @for project_archetype in project_archetypes {
                         tr {
-                            td { (project.id().id) }
-                            td { (project.name()) }
+                            td { (project_archetype.id().id) }
+                            td { (project_archetype.name()) }
                             td {
                                 ul {
-                                    @for related_link in project.related_links() {
+                                    @for related_link in project_archetype.related_links() {
                                         li {
                                 a target={ "_blank" } href=(related_link) { (related_link) };
                                         }

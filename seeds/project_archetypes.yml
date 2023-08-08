@@ -1,9 +1,11 @@
 ---
-- name: Stompbox Tester
+- id: 1
+  name: Stompbox Tester
   related_links:
     - https://www.premierguitar.com/diy/pedal-projects/diy-guitar-pedals
 
-- name: ElectroSmash - Germanium Fuzz
+- id: 2
+  name: ElectroSmash - Germanium Fuzz
   related_links:
     - https://www.electrosmash.com/germanium-fuzz
     - https://guitar.com/guides/diy-workshop/diy-workshop-build-your-own-fuzz-pedal/

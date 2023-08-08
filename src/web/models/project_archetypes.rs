@@ -1,5 +1,5 @@
 //!
-//! This module handles getting/putting `projects` from/to the database.
+//! This module handles getting/putting `project_archetypes` from/to the database.
 //!
 use std::path::Path;
 
@@ -20,23 +20,23 @@ pub(crate) struct Creator;
 
 impl CreateTable for Creator {
     const QUERY: &'static str = r#"
-    DEFINE TABLE projects SCHEMAFULL;
+    DEFINE TABLE project_archetypes SCHEMAFULL;
 
-    DEFINE FIELD name ON TABLE projects TYPE string
+    DEFINE FIELD name ON TABLE project_archetypes TYPE string
         ASSERT $value != NONE;
 
-    DEFINE FIELD related_links ON TABLE projects TYPE array;
+    DEFINE FIELD related_links ON TABLE project_archetypes TYPE array;
 
     -- Assert that all elements of the `related_links` array are URLs.
-    DEFINE FIELD related_links.* ON TABLE projects TYPE string
+    DEFINE FIELD related_links.* ON TABLE project_archetypes TYPE string
         ASSERT is::url($value);
 
-    DEFINE FIELD created_at ON TABLE projects TYPE datetime
+    DEFINE FIELD created_at ON TABLE project_archetypes TYPE datetime
         VALUE $value OR time::now();
     "#;
 }
 
-/// Data for `/brands`.
+/// Data for `/project_archetypes`.
 ///
 #[derive(Debug, Deserialize)]
 pub(crate) struct Index {
@@ -59,7 +59,7 @@ impl Index {
     }
 }
 
-/// Data for `/projects/:id`.
+/// Data for `/project_archetypes/:id`.
 ///
 #[derive(Debug, Deserialize)]
 pub(crate) struct Show {
@@ -86,11 +86,12 @@ impl Show {
         self.related_links.as_ref()
     }
 }
-/// Data for reading projects from the seed file and writing to the database. The seed file
+/// Data for reading project_archetypes from the seed file and writing to the database. The seed file
 /// only contains entries with names, hence the single attribute here.
 ///
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct Seed {
+    id: u32,
     name: String,
     related_links: Vec<String>,
 }
@@ -100,12 +101,15 @@ impl Import for Seed {
     type InsertedType = Index;
 
     async fn import(file: &Path, db: &Surreal<Db>) -> anyhow::Result<()> {
-        let seed_projects = Self::load_yaml(file).await?;
+        let seed_project_archetypes = Self::load_yaml(file).await?;
 
-        for seed_project in seed_projects {
-            info!("Creating project: {:?}", &seed_project);
+        for seed_project_archetype in seed_project_archetypes {
+            info!("Creating project_archetype: {:?}", &seed_project_archetype);
 
-            let project: Show = db.create("projects").content(seed_project).await?;
+            let project: Show = db
+                .create("project_archetypes")
+                .content(seed_project_archetype)
+                .await?;
             println!(
                 "Inserted project: [{} - {}] {}: {:?}",
                 project.created_at(),
