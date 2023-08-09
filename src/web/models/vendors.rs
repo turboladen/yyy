@@ -93,6 +93,7 @@ impl Show {
 ///
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct Seed {
+    id: u16,
     name: String,
     home_page: String,
 }

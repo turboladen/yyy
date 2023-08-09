@@ -1,33 +1,44 @@
 ---
-- name: Amazon
+- id: 1
+  name: Amazon
   home_page: https://www.amazon.com
 
-- name: Antique Electric Supply
+- id: 2
+  name: Antique Electric Supply
   home_page: https://www.tubesandmore.com
 
-- name: DigiKey
+- id: 3
+  name: DigiKey
   home_page: https://www.digikey.com
 
-- name: Jameco
+- id: 4
+  name: Jameco
   home_page: https://www.jameco.com
 
-- name: Love My Switches
+- id: 5
+  name: Love My Switches
   home_page: https://www.lovemyswitches.com
 
-- name: Mouser
+- id: 6
+  name: Mouser
   home_page: https://www.mouser.com
 
-- name: Parts Connexion
+- id: 7
+  name: Parts Connexion
   home_page: https://www.partsconnexion.com
 
-- name: RS
+- id: 8
+  name: RS
   home_page: https://us.rs-online.com
 
-- name: StompBox Parts
+- id: 9
+  name: StompBox Parts
   home_page: https://stompboxparts.com
 
-- name: TEquipment
+- id: 10
+  name: TEquipment
   home_page: https://www.tequipment.net
 
-- name: Tayda
+- id: 11
+  name: Tayda
   home_page: https://www.taydaelectronics.com
