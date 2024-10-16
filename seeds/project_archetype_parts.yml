@@ -1,0 +1,419 @@
+# "Project archetype parts" are requirements for "project archetypes", allowing
+# you to list a part (the project archetype part) without referring to some
+# exact part from some vendor. For example, if a project archetype calls for "1
+# 10kΩ, metal film resistor", we don't have to suggest using "1 Yageo 10kΩ,
+# metal film resistor, part number 19284 from mouser.com".
+---
+#  ╭───────────────────────╮
+#  │ Stompbox Tester Parts │
+#  ╰───────────────────────╯
+- id: 1
+  description: "Test lead: banana male -> alligator, red"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 2
+  description: "Test lead: banana male -> alligator, black"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 3
+  description: "Test lead: banana male -> alligator, blue"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 4
+  description: "Test lead: banana male -> alligator, green"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 5
+  description: Banada post (4mm), red
+  project_ids: [1]
+  category_id: 9
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 6
+  description: Banada post (4mm), black
+  project_ids: [1]
+  category_id: 9
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 7
+  description: Banada post (4mm), blue
+  project_ids: [1]
+  category_id: 9
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 8
+  description: Banada post (4mm), green
+  project_ids: [1]
+  category_id: 9
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 9
+  description: 1590BB Enclosure
+  project_ids: [1]
+  category_id: 5
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 10
+  description: Rocket Socket Set
+  project_ids: [1]
+  category_id: 19
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: false
+  notes:
+
+- id: 11
+  description: 1/4\" female jack (mono)
+  project_ids: [1]
+  category_id: 9
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 12
+  description: 1/4\" female jack (stereo)
+  project_ids: [1]
+  category_id: 9
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 13
+  description: 2.1mm DC power jack
+  project_ids: [1]
+  category_id: 13
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 14
+  description: 3PDT (on on) switch
+  project_ids: [1]
+  category_id: 17
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 15
+  description: LED, 5mm
+  project_ids: [1]
+  category_id: 11
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 16
+  description: 9V Battery Snap
+  project_ids: [1]
+  category_id: 13
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 17
+  description: "Resistor: 1kΩ, 0.25W"
+  project_ids: [1]
+  category_id: 14
+  reference_designators:
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 18
+  description: "Hookup wire: 22AWG, red"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 12
+    unit: inches
+  is_required: true
+  notes:
+
+- id: 19
+  description: "Hookup wire: 22AWG, black"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 12
+    unit: inches
+  is_required: true
+  notes:
+
+- id: 20
+  description: "Hookup wire: 22AWG, blue"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 12
+    unit: inches
+  is_required: true
+  notes:
+
+- id: 21
+  description: "Hookup wire: 22AWG, green"
+  project_ids: [1]
+  category_id: 22
+  reference_designators:
+  amount_needed:
+    value: 12
+    unit: inches
+  is_required: true
+  notes:
+
+#  ╭─────────────────────────────────────╮
+#  │ ElectroSmash - Germanium Fuzz parts │
+#  ╰─────────────────────────────────────╯
+- id: 22
+  description: PNP Germanium Transistor
+  project_ids: [2]
+  category_id: 21
+  reference_designators: [Q2, Q3]
+  amount_needed:
+    value: 2
+    unit: pieces
+  is_required: true
+  notes: >
+    - Original Fuzz Face used AC128, replaced by Newmarket NKT275 before
+      switching to silicon.
+    - Reasonable high-gain (HFE > 60) and super-low leakage current.
+    - Site suggests NOS Russian transistors.
+    - Best = low gain in first stage (HFE ~= 80) and high gain in second
+      (HFE ~= 120).
+
+- id: 23
+  description: "1N5817, Schottky diode"
+  project_ids: [2]
+  category_id: 4
+  reference_designators: [D1]
+  amount_needed:
+    value: 1
+    unit: pieces
+  is_required: true
+  notes: >
+
+- id: 24
+  description: LED, high intensity, 5mm
+  project_ids: [2]
+  category_id: 11
+  reference_designators: [D2]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 25
+  description: "1MΩ, 0.25W, 1% tolerance, 250V"
+  project_ids: [2]
+  category_id: 14
+  reference_designators: [R0]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 26
+  description: "470R, carbon, 0.5W"
+  project_ids: [2]
+  category_id: 14
+  reference_designators: [R1]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 27
+  description: "100KΩ, 0.5W, 5% tolerance"
+  project_ids: [2]
+  category_id: 14
+  reference_designators: [R2]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 28
+  description: "10kΩ, 0.25W, 1% tolerance, metal film resistor"
+  project_ids: [2]
+  category_id: 14
+  reference_designators: [R3]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 29
+  description: "100kΩ multi-turn trimmer"
+  project_ids: [2]
+  category_id: 12
+  reference_designators: [Trimmer1, Trimmer2]
+  amount_needed:
+    value: 2
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 30
+  description: "500kΩ audio potentiometer"
+  project_ids: [2]
+  category_id: 12
+  reference_designators: ["Potentiometer VR1"]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 31
+  description: "1kΩ reverse-log potentiometer"
+  project_ids: [2]
+  category_id: 12
+  reference_designators: ["Potentiometer VR2"]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 32
+  description: "2.2µF electrolytic capacitor, axial, 100VDC, ±10%"
+  project_ids: [2]
+  category_id: 2
+  reference_designators: ["C1"]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 33
+  description: "0.01µF film capacitor, axial, 400 VDC, ±10%"
+  project_ids: [2]
+  category_id: 2
+  reference_designators: ["C3"]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes:
+
+- id: 34
+  description: "20µF aluminum electrolytic capacitor, axial, 16 VDC"
+  project_ids: [2]
+  category_id: 2
+  reference_designators: ["C2"]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes: >
+    Mouser part: 75-TE1157-E3
+
+- id: 35
+  description: "470µF aluminum electrolytic capacitor, radial, 16 VDC, ±20%"
+  project_ids: [2]
+  category_id: 2
+  reference_designators: ["C4"]
+  amount_needed:
+    value: 1
+    unit: piece
+  is_required: true
+  notes: >
+    Mouser part: 710-860020374012
+
+- id: 36
+  description: "100pF ceramic capacitor, radial, 50 VDC, ±10%"
+  project_ids: [2]
+  category_id: 2
+  reference_designators: ["Cx"]
+  amount_needed:
+    value: 2
+    unit: piece
+  is_required: false
+  suggested_part:
+    id: 1
+    type: capacitors
+  notes: >
+    Mouser part: 594-K101K10X7RF5UH5

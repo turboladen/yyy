@@ -1,0 +1,52 @@
+---
+- id: 1
+  vendor_id: 6
+  vendor_part_number: "594-K101K10X7RF5UH5"
+  part:
+    id: 1
+    type: capacitors
+  price:
+    amount: 0.23
+    per: 1
+    last_checked: 2023-08-09
+  product_page: >
+    https://www.mouser.com/ProductDetail/Vishay-BC-Components/K101K10X7RF5UH5?qs=rLgk8CAOBHbrqc%252BjXd6GDA%3D%3D
+
+- id: 2
+  vendor_id: 6
+  vendor_part_number: "140-TN2R2K2ABK0613P"
+  part:
+    id: 2
+    type: capacitors
+  price:
+    amount:
+    per:
+    last_checked: 2023-08-09
+  product_page: >
+    https://www.mouser.com/ProductDetail/Lelon/TN2R2K2ABK-0613P?qs=4ZuRpliPd6yPHIoLUQlHmg%3D%3D
+
+- id: 3
+  vendor_id: 2
+  vendor_part_number: "C-BC-2D2-63"
+  part:
+    id: 3
+    type: capacitors
+  price:
+    amount: 2.25
+    per: 1
+    last_checked: 2023-08-09
+  product_page: >
+    https://www.tubesandmore.com/products/capacitor-vishay-bc-aluminum-electrolytic-021-asm-series-axial-lead
+
+- id: 4
+  vendor_id: 6
+  vendor_part_number: "594-2222-021-38228"
+  part:
+    id: 3
+    type: capacitors
+  price:
+    amount: 1.71
+    per: 1
+    last_checked: 2023-08-09
+  product_page: >
+    https://www.mouser.com/ProductDetail/Vishay-BC-Components/MAL202138228E3?qs=XRbQbK91chJRku7GQgo6NA%3D%3D

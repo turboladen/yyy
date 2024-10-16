@@ -1,0 +1,51 @@
+---
+- id: 1
+  description: >
+    Multilayer Ceramic Capacitors MLCC - Leaded 100pF 50V 10% X7R 5mm LS
+  manufacturer_id: 1
+  manufacturer_part_number: "K101K10X7RF5UH5"
+  category_id: 2
+  capacitance:
+    value: 100
+    unit: pF
+  voltage_rating:
+    value: 50
+    unit: VDC
+  termination_style_id: 2
+  tolerance:
+    positive: 10
+    negative: 10
+
+- id: 2
+  description: >
+    2.2µF electrolytic, axial, ±10%, 100VDC
+  manufacturer_id: 2
+  manufacturer_part_number: "TN2R2K2ABK-0613P"
+  category_id: 1
+  capacitance:
+    value: 2.2
+    unit: µF
+  voltage_rating:
+    value: 100
+    unit: VDC
+  termination_style_id: 1
+  tolerance:
+    positive: 10
+    negative: 10
+
+- id: 3
+  description: >
+    2.2µF electrolytic, axial, ±20%, 63VDC
+  manufacturer_id: 1
+  manufacturer_part_number: MAL202138228E3
+  category_id: 1
+  capacitance:
+    value: 2.2
+    unit: µF
+  voltage_rating:
+    value: 63
+    unit: VDC
+  termination_style_id: 1
+  tolerance:
+    positive: 20
+    negative: 20

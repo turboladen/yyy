@@ -1,0 +1,46 @@
+# Borrowed from https://www.tubesandmore.com/
+---
+- id: 1
+  name: Cables
+- id: 2
+  name: Capacitors
+- id: 3
+  name: Circuit Design
+- id: 4
+  name: Diodes & Rectifiers
+- id: 5
+  name: Enclosures / Chassis
+- id: 6
+  name: Footswitch Boxes
+- id: 7
+  name: Hardware
+- id: 8
+  name: Integrated Circuits
+- id: 9
+  name: Jacks & Plugs
+- id: 10
+  name: Knobs
+- id: 11
+  name: LEDs & Optoelectronics
+- id: 12
+  name: Potentiometers
+- id: 13
+  name: Power Supplies & Accessories
+- id: 14
+  name: Resistors
+- id: 15
+  name: Semiconductors
+- id: 16
+  name: Speakers & Components
+- id: 17
+  name: Switches
+- id: 18
+  name: Terminal Boards & Strips
+- id: 19
+  name: Tools
+- id: 20
+  name: Transformers & Chokes
+- id: 21
+  name: Transistors
+- id: 22
+  name: Wire
